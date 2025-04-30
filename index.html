@@ -1,56 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Market</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    body {
-      font-family: Arial;
-    }
-    .container {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-    .card {
-      border: 1px solid #ccc;
-      padding: 15px;
-      width: 250px;
-      position: relative;
-    }
-    .price {
-      cursor: pointer;
-      color: green;
-      font-weight: bold;
-    }
     .payment-icons {
       margin-top: 10px;
     }
+
     .payment-icons img {
       width: 30px;
       margin-right: 5px;
     }
+
     .cart {
       position: fixed;
-      top: 10px;
-      right: 10px;
+      top: 20px;
+      right: 20px;
       background: white;
       border: 1px solid #ccc;
       padding: 10px;
-      width: 200px;
+      width: 220px;
       max-height: 300px;
       overflow-y: auto;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      border-radius: 10px;
+      z-index: 999;
     }
+
+    .cart h3 {
+      margin-top: 0;
+      font-size: 20px;
+      text-align: center;
+      color: #333;
+    }
+
     .cart-item {
       display: flex;
       align-items: center;
       margin-bottom: 10px;
     }
+
     .cart-item img {
       width: 50px;
       margin-right: 10px;
+      border-radius: 5px;
     }
   </style>
 </head>
@@ -58,12 +54,16 @@
 
   <h1>ТОВАРИ НА ЯКІ ДІЄ АКЦІЯ</h1>
 
+  <!-- КОРЗИНА -->
   <div class="cart" id="cart">
     <h3>Корзина</h3>
     <div id="cart-items"></div>
   </div>
 
+  <!-- ТОВАРИ -->
   <div class="container">
+
+    <!-- Товар 1 -->
     <div class="card">
       <img src="https://static.dnipro-m.ua/cache/products/6483/catalog_origin_325859.jpg" alt="Мотокоса">
       <h3>Мотокоса 43</h3>
@@ -76,15 +76,40 @@
       </div>
     </div>
 
-    <!-- Інші блоки карток аналогічно -->
+    <!-- Товар 2 -->
+    <div class="card">
+      <img src="https://static.dnipro-m.ua/cache/products/6566/catalog_origin_476205.jpg" alt="Тример">
+      <h3>Електричний тример 110</h3>
+      <p class="price" onclick="addToCart(this)">4 497 грн</p>
+      <p class="new-price">3 498 грн</p>
+      <div class="coupon">Ціна за купоном: 3 396 грн</div>
+      <div class="payment-icons">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Mono_logo.png" alt="Monobank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/PrivatBank_Logo_2018.png" alt="PrivatBank">
+      </div>
+    </div>
+
+    <!-- Товар 3 -->
+    <div class="card">
+      <img src="https://static.dnipro-m.ua/cache/products/6567/catalog_origin_316374.jpg" alt="Газонокосарка">
+      <h3>Електрична газонокосарка 32</h3>
+      <p class="price" onclick="addToCart(this)">4 497 грн</p>
+      <p class="new-price">3 998 грн</p>
+      <div class="coupon">Ціна за купоном: 3 796 грн</div>
+      <div class="payment-icons">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Mono_logo.png" alt="Monobank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/PrivatBank_Logo_2018.png" alt="PrivatBank">
+      </div>
+    </div>
 
   </div>
 
+  <!-- JavaScript для корзини -->
   <script>
     function addToCart(element) {
       const card = element.closest('.card');
       const imgSrc = card.querySelector('img').src;
-      const priceText = element.textContent;
+      const priceText = card.querySelector('.new-price').textContent;
 
       const cartItems = document.getElementById('cart-items');
 
