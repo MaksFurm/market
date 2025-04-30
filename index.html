@@ -1,76 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Market</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/x-icon" href="">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Market</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial;
+    }
+    .container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .card {
+      border: 1px solid #ccc;
+      padding: 15px;
+      width: 250px;
+      position: relative;
+    }
+    .price {
+      cursor: pointer;
+      color: green;
+      font-weight: bold;
+    }
+    .payment-icons {
+      margin-top: 10px;
+    }
+    .payment-icons img {
+      width: 30px;
+      margin-right: 5px;
+    }
+    .cart {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: white;
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 200px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .cart-item img {
+      width: 50px;
+      margin-right: 10px;
+    }
+  </style>
 </head>
 <body>
-    <h1>ТОВАРИ НА ЯКІ ДІЄ АКЦІЯ</h1>
-    <div class="container">
-        <div class="card">
-            <img src="https://static.dnipro-m.ua/cache/products/6483/catalog_origin_325859.jpg" alt="Мотокоса">
-            <h3>Мотокоса 43</h3>
-            <p class="price">5 499 грн</p>
-            <p class="new-price">4 497 грн</p>
-            <div class="coupon">Ціна за купоном: 4 395 грн</div>
-        </div>
-        <div class="card">
-            <img src="https://static.dnipro-m.ua/cache/products/6566/catalog_origin_476205.jpg" alt="Тример">
-            <h3>Електричний тример 110</h3>
-            <p class="price">4 497 грн</p>
-            <p class="new-price">3 498 грн</p>
-            <div class="coupon">Ціна за купоном: 3 396 грн</div>
-        </div>
-        <div class="card">
-            <img src="https://static.dnipro-m.ua/cache/products/6567/catalog_origin_316374.jpg" alt="Газонокосарка">
-            <h3>Електрична газонокосарка 32</h3>
-            <p class="price">4 497 грн</p>
-            <p class="new-price">3 297 грн</p>
-            <div class="coupon">Ціна за купоном: 3 195 грн</div>
-        </div>
-        <div class="card">
-            <img src="https://static.dnipro-m.ua/cache/products/8964/catalog_origin_494158.jpg" alt="Обприскувач">
-            <h3>Акумуляторний обприскувач 12 N</h3>
-            <p class="price">2 190 грн</p>
-            <p class="new-price">1 698 грн</p>
-            <div class="coupon">Ціна за купоном: 1 596 грн</div>
-        </div>
+
+  <h1>ТОВАРИ НА ЯКІ ДІЄ АКЦІЯ</h1>
+
+  <div class="cart" id="cart">
+    <h3>Корзина</h3>
+    <div id="cart-items"></div>
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <img src="https://static.dnipro-m.ua/cache/products/6483/catalog_origin_325859.jpg" alt="Мотокоса">
+      <h3>Мотокоса 43</h3>
+      <p class="price" onclick="addToCart(this)">5 499 грн</p>
+      <p class="new-price">4 497 грн</p>
+      <div class="coupon">Ціна за купоном: 4 395 грн</div>
+      <div class="payment-icons">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Mono_logo.png" alt="Monobank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/PrivatBank_Logo_2018.png" alt="PrivatBank">
+      </div>
     </div>
 
-    <!-- БЛОК ОПЛАТИ -->
-    <div class="payment">
-        <h2>ОПЛАТА</h2>
-        <p>
-            <a href="https://send.monobank.ua/jar/5qdiTNnvG6" target="_blank">Моно</a> -
-            <a href="https://privatbank.ua" target="_blank">Приват</a>
-        </p>
-    </div>
+    <!-- Інші блоки карток аналогічно -->
 
-    <footer>
-        <h2>Житомир</h2>
-        <p class="adress">вул. Київська, 106</p>
-        <p class="number">тел. (0412) 42-00-00</p>
-    </footer>
+  </div>
 
-    <style>
-        .payment {
-            margin: 30px auto;
-            text-align: center;
-            font-size: 20px;
-        }
-        .payment a {
-            margin: 0 10px;
-            text-decoration: none;
-            color: blue;
-            font-weight: bold;
-        }
-        .payment a:hover {
-            text-decoration: underline;
-            color: darkblue;
-        }
-    </style>
+  <script>
+    function addToCart(element) {
+      const card = element.closest('.card');
+      const imgSrc = card.querySelector('img').src;
+      const priceText = element.textContent;
+
+      const cartItems = document.getElementById('cart-items');
+
+      const cartItem = document.createElement('div');
+      cartItem.className = 'cart-item';
+
+      cartItem.innerHTML = `
+        <img src="${imgSrc}" alt="">
+        <span>${priceText}</span>
+      `;
+
+      cartItems.appendChild(cartItem);
+    }
+  </script>
 </body>
 </html>
